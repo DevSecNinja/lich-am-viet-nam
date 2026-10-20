@@ -1,0 +1,2 @@
+# Preserve iCalendar CRLF and significant spaces in folded content lines.
+output/viet_lunar_en_*.ics -text whitespace=-blank-at-eol

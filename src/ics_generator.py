@@ -14,6 +14,8 @@ try:
     from .config import (
         CALENDAR_NAME, CALENDAR_DESCRIPTION,
         PRODID, CALENDAR_VERSION, TIMEZONE,
+        CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
+        HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
     )
     from .holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -24,6 +26,8 @@ except ImportError:
     from config import (
         CALENDAR_NAME, CALENDAR_DESCRIPTION,
         PRODID, CALENDAR_VERSION, TIMEZONE,
+        CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
+        HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
     )
     from holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -32,7 +36,7 @@ except ImportError:
     from lunar_converter import to_lunar, is_last_day_of_lunar_month, LunarDate
 
 
-def _build_event_for_day(d: date, lunar: LunarDate) -> Event:
+def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Event:
     """Tạo VEVENT tối giản cho 1 ngày: Ngày âm + Ngày lễ lớn nếu có."""
     day = lunar.lunar_day
     m = lunar.lunar_month_abs
@@ -63,9 +67,31 @@ def _build_event_for_day(d: date, lunar: LunarDate) -> Event:
         desc_lines.append(f'{holiday.name}: {holiday.description}')
     description = '\n'.join(desc_lines)
 
+    if language == 'en':
+        summary = f'Lunar {day}/{m}'
+        if lunar.is_leap_month:
+            summary += ' (leap month)'
+        if holiday:
+            if not holiday.name_en or not holiday.description_en:
+                raise ValueError(f'Missing English translation for holiday: {holiday.name}')
+            summary += f' • {holiday.name_en}'
+        elif day == 1:
+            summary += ' • First Day of Lunar Month'
+        elif day == 15:
+            summary += ' • Full Moon'
+
+        stem, branch = lunar.can_chi_year.split()
+        year_name = f'{HEAVENLY_STEMS_EN[stem]} {EARTHLY_BRANCHES_EN[branch]}'
+        month_label = 'leap month' if lunar.is_leap_month else 'month'
+        desc_lines = [f'Lunar day {day}, {month_label} {m} ({year_name} year)']
+        if holiday:
+            desc_lines.append(f'{holiday.name_en}: {holiday.description_en}')
+        description = '\n'.join(desc_lines)
+
     # 4. Khởi tạo VEVENT
     event = Event()
-    event.add('uid', f"vnlunar-{d.strftime('%Y%m%d')}@cmduyeen")
+    uid_prefix = 'vnlunar-en' if language == 'en' else 'vnlunar'
+    event.add('uid', f"{uid_prefix}-{d.strftime('%Y%m%d')}@cmduyeen")
     event.add('summary', summary)
     event.add('description', description)
     event.add('dtstart', d)
@@ -89,22 +115,28 @@ def _build_event_for_day(d: date, lunar: LunarDate) -> Event:
 class LunarCalendarGenerator:
     """Tạo file .ics lịch âm Việt Nam theo khoảng năm cho trước."""
 
-    def _make_calendar(self, name: str = CALENDAR_NAME) -> Calendar:
+    def __init__(self, language: str = 'vi'):
+        if language not in ('vi', 'en'):
+            raise ValueError(f'Unsupported calendar language: {language}')
+        self.language = language
+        self.calendar_name = CALENDAR_NAME_EN if language == 'en' else CALENDAR_NAME
+
+    def _make_calendar(self, name: Optional[str] = None) -> Calendar:
         """Khởi tạo Calendar object với metadata chuẩn."""
         cal = Calendar()
-        cal.add('prodid',  PRODID)
+        cal.add('prodid', PRODID_EN if self.language == 'en' else PRODID)
         cal.add('version', CALENDAR_VERSION)
         cal.add('calscale', 'GREGORIAN')
         cal.add('method',   'PUBLISH')
-        cal.add('x-wr-calname',   name)
+        cal.add('x-wr-calname', name if name is not None else self.calendar_name)
         cal.add('x-wr-timezone',  TIMEZONE)
-        cal.add('x-wr-caldesc',   CALENDAR_DESCRIPTION)
+        cal.add('x-wr-caldesc', CALENDAR_DESCRIPTION_EN if self.language == 'en' else CALENDAR_DESCRIPTION)
         cal.add('x-apple-calendar-color', '#E53935')
         return cal
 
     def generate_year(self, year: int) -> Calendar:
         """Tạo đối tượng Calendar cho một năm Dương lịch cụ thể."""
-        cal = self._make_calendar(f'Lịch Âm Việt Nam {year}')
+        cal = self._make_calendar(f'{self.calendar_name} {year}')
         start = date(year, 1, 1)
         end   = date(year, 12, 31)
         self._fill_calendar(cal, start, end)
@@ -112,7 +144,7 @@ class LunarCalendarGenerator:
 
     def generate_range(self, start_year: int, end_year: int) -> Calendar:
         """Tạo đối tượng Calendar tổng hợp cho một khoảng thời gian nhiều năm."""
-        cal = self._make_calendar(f'Lịch Âm Việt Nam {start_year}–{end_year}')
+        cal = self._make_calendar(f'{self.calendar_name} {start_year}–{end_year}')
         start = date(start_year, 1, 1)
         end   = date(end_year, 12, 31)
         self._fill_calendar(cal, start, end)
@@ -124,9 +156,11 @@ class LunarCalendarGenerator:
         while current <= end:
             try:
                 lunar = to_lunar(current)
-                event = _build_event_for_day(current, lunar)
+                event = _build_event_for_day(current, lunar, self.language)
                 cal.add_component(event)
             except Exception as exc:
+                if self.language == 'en':
+                    raise RuntimeError(f'Failed to generate English event for {current}') from exc
                 print(f'[WARN] Lỗi khi xử lý ngày {current}: {exc}')
             current += timedelta(days=1)
 

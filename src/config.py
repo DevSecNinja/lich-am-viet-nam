@@ -22,3 +22,24 @@ CALENDAR_DESCRIPTION = (
 )
 PRODID = '-//VietLunarCalendar//Vietnamese Lunar Calendar//VI'
 CALENDAR_VERSION = '2.0'
+
+CALENDAR_NAME_EN = 'Vietnamese Lunar Calendar'
+CALENDAR_DESCRIPTION_EN = (
+    'A minimalist Vietnamese lunar calendar with automatic subscription updates. '
+    'Includes lunar dates, first days of lunar months, full moons and major holidays. '
+    'Time zone GMT+7 - Asia/Ho_Chi_Minh.'
+)
+PRODID_EN = '-//VietLunarCalendar//Vietnamese Lunar Calendar//EN'
+
+HEAVENLY_STEMS_EN = {
+    'Giáp': 'Yang Wood', 'Ất': 'Yin Wood',
+    'Bính': 'Yang Fire', 'Đinh': 'Yin Fire',
+    'Mậu': 'Yang Earth', 'Kỷ': 'Yin Earth',
+    'Canh': 'Yang Metal', 'Tân': 'Yin Metal',
+    'Nhâm': 'Yang Water', 'Quý': 'Yin Water',
+}
+EARTHLY_BRANCHES_EN = {
+    'Tý': 'Rat', 'Sửu': 'Buffalo', 'Dần': 'Tiger', 'Mão': 'Cat',
+    'Thìn': 'Dragon', 'Tỵ': 'Snake', 'Ngọ': 'Horse', 'Mùi': 'Goat',
+    'Thân': 'Monkey', 'Dậu': 'Rooster', 'Tuất': 'Dog', 'Hợi': 'Pig',
+}

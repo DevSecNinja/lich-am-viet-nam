@@ -14,6 +14,10 @@
 </p>
 
 <p align="center">
+  Tiếng Việt | <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-FFD1DC?style=flat" alt="License" /></a>
   <img src="https://img.shields.io/badge/Cập_nhật-Tự_động_hàng_năm-FFF0F5?style=flat&logoColor=D4698B" alt="Auto Update" />
   <img src="https://img.shields.io/badge/Dữ_liệu-10_năm_tới-FFD1DC?style=flat" alt="10 Years" />
@@ -43,6 +47,9 @@ Dán đường dẫn đăng ký lịch sau vào ứng dụng lịch của bạn:
 ```text
 https://raw.githubusercontent.com/cmduyeen/lich-am-viet-nam/main/output/viet_lunar_latest.ics
 ```
+
+Bản tiếng Anh có tiêu đề và mô tả sự kiện riêng: xem [hướng dẫn tiếng Anh](README.en.md#subscribe).
+Đường dẫn lịch tiếng Việt hiện tại không thay đổi.
 
 <details open>
 <summary><b>Hướng dẫn cài đặt nhanh theo thiết bị</b></summary>

@@ -38,6 +38,7 @@ jobs:
           # Tự động tạo file tổng hợp 10 năm cuốn chiếu và các file riêng từng năm
           python main.py --split
           python main.py --language en --split
+          python main.py --minimal --split
           python main.py --language en --minimal --split
 
       - name: Commit and push changes

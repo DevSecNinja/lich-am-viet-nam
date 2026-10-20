@@ -16,6 +16,7 @@ from src.config import (
     CALENDAR_DESCRIPTION_EN, CALENDAR_NAME_EN, EARTHLY_BRANCHES_EN,
     HEAVENLY_STEMS_EN, PRODID_EN,
     MINIMAL_CALENDAR_DESCRIPTION_EN, MINIMAL_CALENDAR_NAME_EN,
+    MINIMAL_CALENDAR_DESCRIPTION, MINIMAL_CALENDAR_NAME, FULL_MOON_NOTE, PRODID,
 )
 from src.holidays import FIXED_LUNAR_HOLIDAYS, FIXED_SOLAR_HOLIDAYS, GIAO_THUA, HolidayInfo
 from src.ics_generator import LunarCalendarGenerator, _build_event_for_day
@@ -181,6 +182,7 @@ class MinimalFeedTests(unittest.TestCase):
         cls.start_year = events[0].decoded('DTSTART').year
         cls.end_year = events[-1].decoded('DTSTART').year
         cls.minimal = LunarCalendarGenerator('en', minimal=True).generate_range(cls.start_year, cls.end_year)
+        cls.minimal_vi = LunarCalendarGenerator(minimal=True).generate_range(cls.start_year, cls.end_year)
 
     def test_exact_selection_titles_and_distinct_stable_identifiers(self):
         expected = {}
@@ -253,11 +255,72 @@ class MinimalFeedTests(unittest.TestCase):
                     [expected] if expected else [],
                 )
 
-    def test_minimal_is_english_only_and_full_is_default(self):
+    def test_minimal_supports_both_languages_and_full_is_default(self):
         self.assertFalse(LunarCalendarGenerator('en').minimal)
         self.assertFalse(LunarCalendarGenerator().minimal)
-        with self.assertRaisesRegex(ValueError, 'Minimal calendars require English'):
-            LunarCalendarGenerator(minimal=True)
+        default = LunarCalendarGenerator(minimal=True)
+        explicit = LunarCalendarGenerator('vi', minimal=True)
+        self.assertEqual(default.language, 'vi')
+        self.assertEqual(default.calendar_name, explicit.calendar_name)
+        self.assertEqual(default.calendar_description, explicit.calendar_description)
+        self.assertEqual(default.calendar_name, MINIMAL_CALENDAR_NAME)
+
+    def test_vietnamese_minimal_matches_english_and_checked_in_artifacts(self):
+        self.assertEqual(str(self.minimal_vi['PRODID']), PRODID)
+        self.assertEqual(str(self.minimal_vi['X-WR-CALDESC']), MINIMAL_CALENDAR_DESCRIPTION)
+        self.assertEqual(
+            str(self.minimal_vi['X-WR-CALNAME']),
+            f'{MINIMAL_CALENDAR_NAME} {self.start_year}\u2013{self.end_year}',
+        )
+        vi_events = self.minimal_vi.walk('VEVENT')
+        en_events = self.minimal.walk('VEVENT')
+        self.assertEqual(len(vi_events), len(en_events))
+        self.assertEqual(len({str(event['UID']) for event in vi_events}), len(vi_events))
+        titles = {'Full Moon': 'R\u1eb1m', 'Lunar New Year': 'T\u1ebft Nguy\u00ean \u0110\u00e1n'}
+        for vi, en in zip(vi_events, en_events):
+            self.assertEqual(str(vi['SUMMARY']), titles[str(en['SUMMARY'])])
+            self.assertEqual(str(vi['UID']), f"vnlunar-minimal-{vi.decoded('DTSTART'):%Y%m%d}@cmduyeen")
+            self.assertNotEqual(vi['UID'], en['UID'])
+            for key in ('DTSTART', 'DTEND', 'COLOR', 'X-MICROSOFT-CDO-IMPORTANCE'):
+                self.assertEqual(vi.get(key), en.get(key))
+        output = ROOT / 'output'
+        latest = (output / 'viet_lunar_minimal_latest.ics').read_bytes()
+        self.assertEqual(latest, (output / f'viet_lunar_minimal_{self.start_year}_{self.end_year}.ics').read_bytes())
+        self.assertEqual(without_timestamps(Calendar.from_ical(latest)), without_timestamps(self.minimal_vi))
+        with zipfile.ZipFile(output / f'viet_lunar_minimal_yearly_{self.start_year}_{self.end_year}.zip') as archive:
+            names = [f'viet_lunar_minimal_{year}.ics' for year in range(self.start_year, self.end_year + 1)]
+            self.assertEqual(archive.namelist(), names)
+            for year, name in zip(range(self.start_year, self.end_year + 1), names):
+                raw = (output / name).read_bytes()
+                self.assertEqual(archive.read(name), raw)
+                self.assertTrue(raw.endswith(b'\r\n'))
+                self.assertNotIn(b'\n', raw.replace(b'\r\n', b''))
+                self.assertTrue(all(len(line) <= 75 for line in raw.split(b'\r\n')))
+                generated = LunarCalendarGenerator(minimal=True).generate_year(year)
+                self.assertEqual(without_timestamps(Calendar.from_ical(raw)), without_timestamps(generated))
+
+    def test_vietnamese_full_moon_collisions_and_leap_markers(self):
+        solar = date(2026, 1, 1)
+        base = to_lunar(solar)
+        for month in (1, 4, 7, 8, -1, -6):
+            with self.subTest(month=month):
+                lunar = replace(base, lunar_month=month, lunar_day=15, is_leap_month=month < 0)
+                event = _build_event_for_day(solar, lunar, minimal=True)
+                self.assertEqual(str(event['SUMMARY']), 'R\u1eb1m')
+                self.assertIn(FULL_MOON_NOTE, str(event['DESCRIPTION']))
+                self.assertEqual(' nhu\u1eadn ' in str(event['DESCRIPTION']), month < 0)
+                self.assertNotIn('X-MICROSOFT-CDO-IMPORTANCE', event)
+        lunar = replace(base, lunar_month=-1, lunar_day=1, is_leap_month=True)
+        generator = LunarCalendarGenerator(minimal=True)
+        calendar = generator._make_calendar()
+        with patch('src.ics_generator.to_lunar', return_value=lunar):
+            generator._fill_calendar(calendar, solar, solar)
+        self.assertEqual(calendar.walk('VEVENT'), [])
+
+    def test_vietnamese_minimal_errors_do_not_publish_partial_calendars(self):
+        with patch('src.ics_generator.to_lunar', side_effect=ValueError('Conversion failed')):
+            with self.assertRaisesRegex(RuntimeError, 'Failed to generate Vietnamese event'):
+                LunarCalendarGenerator(minimal=True).generate_year(2026)
 
 
 class CommandLineTests(unittest.TestCase):
@@ -311,7 +374,8 @@ class CommandLineTests(unittest.TestCase):
     def test_minimal_cli_outputs_preserve_full_feeds_and_latest_on_year_mode(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
-            full_names = ['viet_lunar_latest.ics', 'viet_lunar_en_latest.ics', 'viet_lunar_en_2025.ics']
+            full_names = ['viet_lunar_latest.ics', 'viet_lunar_en_latest.ics',
+                          'viet_lunar_en_2025.ics', 'viet_lunar_minimal_latest.ics']
             for name in full_names:
                 (output / name).write_bytes(b'Existing full feed')
             self.run_main('--language', 'en', '--minimal', '--start', '2026', '--end', '2027',
@@ -326,9 +390,9 @@ class CommandLineTests(unittest.TestCase):
             for name in full_names:
                 self.assertEqual((output / name).read_bytes(), b'Existing full feed')
 
-    def test_cleanup_is_isolated_between_all_three_feeds(self):
+    def test_cleanup_is_isolated_between_all_four_feeds(self):
         variants = [('vi', False, 'viet_lunar'), ('en', False, 'viet_lunar_en'),
-                    ('en', True, 'viet_lunar_en_minimal')]
+                    ('vi', True, 'viet_lunar_minimal'), ('en', True, 'viet_lunar_en_minimal')]
         for language, minimal, prefix in variants:
             with self.subTest(prefix=prefix), tempfile.TemporaryDirectory() as directory:
                 output = Path(directory)
@@ -341,14 +405,26 @@ class CommandLineTests(unittest.TestCase):
                 self.assertEqual(set(cleanup_past_files(output, 2026, language, minimal)), expired)
                 self.assertEqual({path.name for path in output.iterdir()}, names - expired)
 
-    def test_minimal_without_english_exits_before_writing(self):
+    def test_default_and_explicit_vietnamese_minimal_cli_preserve_other_feeds(self):
         with tempfile.TemporaryDirectory() as directory:
-            with patch('sys.argv', ['main.py', '--minimal', '--output-dir', directory]), \
-                    contextlib.redirect_stderr(io.StringIO()):
-                with self.assertRaises(SystemExit) as error:
-                    main()
-            self.assertEqual(error.exception.code, 2)
-            self.assertEqual(list(Path(directory).iterdir()), [])
+            output = Path(directory)
+            other_names = ['viet_lunar_latest.ics', 'viet_lunar_en_latest.ics',
+                           'viet_lunar_en_minimal_latest.ics', 'viet_lunar_2025.ics']
+            for name in other_names:
+                (output / name).write_bytes(b'Existing feed')
+            self.run_main('--minimal', '--start', '2026', '--end', '2027', '--split', '--output-dir', directory)
+            latest = (output / 'viet_lunar_minimal_latest.ics').read_bytes()
+            self.assertEqual(latest, (output / 'viet_lunar_minimal_2026_2027.ics').read_bytes())
+            with zipfile.ZipFile(output / 'viet_lunar_minimal_yearly_2026_2027.zip') as archive:
+                self.assertEqual(archive.namelist(), ['viet_lunar_minimal_2026.ics', 'viet_lunar_minimal_2027.ics'])
+            self.run_main('--minimal', '--year', '2028', '--output-dir', directory)
+            default = Calendar.from_ical((output / 'viet_lunar_minimal_2028.ics').read_bytes())
+            self.run_main('--language', 'vi', '--minimal', '--year', '2028', '--output-dir', directory)
+            explicit = Calendar.from_ical((output / 'viet_lunar_minimal_2028.ics').read_bytes())
+            self.assertEqual(without_timestamps(default), without_timestamps(explicit))
+            self.assertEqual((output / 'viet_lunar_minimal_latest.ics').read_bytes(), latest)
+            for name in other_names:
+                self.assertEqual((output / name).read_bytes(), b'Existing feed')
 
 
 if __name__ == '__main__':

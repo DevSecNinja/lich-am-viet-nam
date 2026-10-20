@@ -11,6 +11,7 @@ Cách dùng:
     python main.py --year 2027              # Chỉ tạo lịch cho một năm cụ thể
     python main.py --language en --split    # Generate English calendars alongside Vietnamese files
     python main.py --language en --minimal --split  # Only lunar day 15 and Lunar New Year's Day
+    python main.py --minimal --split        # Rằm và Mùng 1 Tết, tiếng Việt (mặc định)
 """
 import argparse
 import re
@@ -83,10 +84,8 @@ def cleanup_past_files(
     - Xóa file lẻ từng năm: viet_lunar_{year}.ics nếu year < current_year
     - Xóa file tổng hợp cũ: viet_lunar_{start}_{end}.ics nếu start < current_year
     - Xóa file zip cũ: viet_lunar_yearly_{start}_{end}.zip nếu start < current_year
-    English files use viet_lunar_en; minimal English files use viet_lunar_en_minimal.
+    English files use viet_lunar_en; minimal files append _minimal to the selected language prefix.
     """
-    if minimal and language != 'en':
-        raise ValueError('Minimal calendars require English (language="en")')
     removed: list[str] = []
     if not output_path.exists():
         return removed
@@ -154,15 +153,13 @@ def main():
     )
     parser.add_argument(
         '--minimal', action='store_true',
-        help="English only: traditional lunar day 15 and Lunar New Year's Day",
+        help="Only traditional lunar day 15 and Lunar New Year's Day (vi or en)",
     )
     parser.add_argument(
         '--output-dir', type=str, default=OUTPUT_DIR,
         help=f'Thư mục output (mặc định: {OUTPUT_DIR})',
     )
     args = parser.parse_args()
-    if args.minimal and args.language != 'en':
-        parser.error('--minimal requires --language en')
 
     print_banner()
 

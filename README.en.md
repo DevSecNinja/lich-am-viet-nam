@@ -31,13 +31,15 @@ The existing Vietnamese subscription is unchanged:
 https://raw.githubusercontent.com/cmduyeen/lich-am-viet-nam/main/output/viet_lunar_latest.ics
 ```
 
-Choose one feed to avoid duplicate events. Each English feed has its own stable
-identifiers, so the minimal, full English and Vietnamese feeds do not overwrite
-one another.
+The [Vietnamese minimal subscription](output/viet_lunar_minimal_latest.ics)
+uses translated titles and descriptions for the same dates as minimal English.
+
+Choose one feed to avoid duplicate events. All four feeds have their own stable
+identifiers, so full/minimal English and Vietnamese do not overwrite one another.
 
 ### Minimal calendar
 
-The minimal feed contains only these two event kinds, with exactly these titles:
+Both minimal feeds contain only these two event kinds (English titles shown):
 
 - **Full Moon**: the traditional **15th day of every lunar month**, including leap
   months. This follows the existing lunar calendar convention, **not the exact
@@ -133,6 +135,8 @@ python main.py --split
 python main.py --language en --split
 python main.py --language en --start 2026 --end 2036
 python main.py --language en --year 2027
+python main.py --minimal --split
+python main.py --language vi --minimal --split
 python main.py --language en --minimal --split
 ```
 
@@ -146,9 +150,11 @@ Full English files in `output` are:
 - `viet_lunar_en_<year>.ics`: single-year calendar (`--split` or `--year`).
 - `viet_lunar_en_yearly_<start>_<end>.zip`: yearly calendars (`--split`, multiple years).
 
-`--minimal` requires `--language en` and uses the separate prefix
-`viet_lunar_en_minimal` with the same rolling, year-range, single-year and ZIP
-filename patterns. Its subscription file is `viet_lunar_en_minimal_latest.ics`.
+`--minimal` works with both languages: Vietnamese is the default, or select
+`--language vi` explicitly; use `--language en` for English. Minimal files use
+`viet_lunar_minimal` (Vietnamese) or `viet_lunar_en_minimal` (English) with the
+same rolling, year-range, single-year and ZIP filename patterns. Their subscription
+files are `viet_lunar_minimal_latest.ics` and `viet_lunar_en_minimal_latest.ics`.
 For example, `python main.py --language en --minimal --year 2027` only writes
 `viet_lunar_en_minimal_2027.ics`. Omitting `--minimal` preserves the full feed.
 
@@ -156,7 +162,7 @@ For example, `python main.py --language en --minimal --year 2027` only writes
 `--output-dir` selects a different output directory. Cleanup removes past-year
 files only for the selected language and mode, leaving all other feeds untouched.
 
-The GitHub Actions workflow generates both full languages and minimal English
+The GitHub Actions workflow generates full and minimal feeds in both languages
 on pushes to `main`, on January 1 each year and on manual runs. It retains the
 existing rolling range.
 Scheduled workflows may need to be enabled in a fork before automatic updates run.

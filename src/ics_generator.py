@@ -18,6 +18,8 @@ try:
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
         MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
         FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
+        MINIMAL_CALENDAR_NAME, MINIMAL_CALENDAR_DESCRIPTION,
+        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE,
     )
     from .holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -32,6 +34,8 @@ except ImportError:
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
         MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
         FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
+        MINIMAL_CALENDAR_NAME, MINIMAL_CALENDAR_DESCRIPTION,
+        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE,
     )
     from holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -59,7 +63,9 @@ def _build_event_for_day(
             holiday = FIXED_SOLAR_HOLIDAYS[(d.month, d.day)]
 
     # 2. Tiêu đề (Summary): Tối giản, tinh tế
-    if holiday:
+    if minimal:
+        summary = 'Rằm' if day == 15 else 'Tết Nguyên Đán'
+    elif holiday:
         summary = f'{day}/{m} • {holiday.name}'
     elif day == 1:
         summary = f'{day}/{m} • Mùng 1'
@@ -70,7 +76,11 @@ def _build_event_for_day(
 
     # 3. Mô tả (Description): Súc tích, không rối mắt
     desc_lines = [f'Ngày {day} tháng {m} âm lịch ({lunar.can_chi_year})']
-    if holiday:
+    if minimal:
+        month_label = f'{m} nhuận' if lunar.is_leap_month else str(m)
+        desc_lines = [f'Ngày {day} tháng {month_label} âm lịch ({lunar.can_chi_year})']
+        desc_lines.append(FULL_MOON_NOTE if day == 15 else LUNAR_NEW_YEAR_NOTE)
+    elif holiday:
         desc_lines.append(f'{holiday.name}: {holiday.description}')
     description = '\n'.join(desc_lines)
 
@@ -103,7 +113,7 @@ def _build_event_for_day(
     event = Event()
     uid_prefix = 'vnlunar-en' if language == 'en' else 'vnlunar'
     if minimal:
-        uid_prefix = 'vnlunar-en-minimal'
+        uid_prefix += '-minimal'
     event.add('uid', f"{uid_prefix}-{d.strftime('%Y%m%d')}@cmduyeen")
     event.add('summary', summary)
     event.add('description', description)
@@ -131,15 +141,15 @@ class LunarCalendarGenerator:
     def __init__(self, language: str = 'vi', minimal: bool = False):
         if language not in ('vi', 'en'):
             raise ValueError(f'Unsupported calendar language: {language}')
-        if minimal and language != 'en':
-            raise ValueError('Minimal calendars require English (language="en")')
         self.language = language
         self.minimal = minimal
         self.calendar_name = CALENDAR_NAME_EN if language == 'en' else CALENDAR_NAME
         self.calendar_description = CALENDAR_DESCRIPTION_EN if language == 'en' else CALENDAR_DESCRIPTION
         if minimal:
-            self.calendar_name = MINIMAL_CALENDAR_NAME_EN
-            self.calendar_description = MINIMAL_CALENDAR_DESCRIPTION_EN
+            self.calendar_name = MINIMAL_CALENDAR_NAME_EN if language == 'en' else MINIMAL_CALENDAR_NAME
+            self.calendar_description = (
+                MINIMAL_CALENDAR_DESCRIPTION_EN if language == 'en' else MINIMAL_CALENDAR_DESCRIPTION
+            )
 
     def _make_calendar(self, name: Optional[str] = None) -> Calendar:
         """Khởi tạo Calendar object với metadata chuẩn."""
@@ -183,8 +193,9 @@ class LunarCalendarGenerator:
                     event = _build_event_for_day(current, lunar, self.language, self.minimal)
                     cal.add_component(event)
             except Exception as exc:
-                if self.language == 'en':
-                    raise RuntimeError(f'Failed to generate English event for {current}') from exc
+                if self.language == 'en' or self.minimal:
+                    language_name = 'English' if self.language == 'en' else 'Vietnamese'
+                    raise RuntimeError(f'Failed to generate {language_name} event for {current}') from exc
                 print(f'[WARN] Lỗi khi xử lý ngày {current}: {exc}')
             current += timedelta(days=1)
 

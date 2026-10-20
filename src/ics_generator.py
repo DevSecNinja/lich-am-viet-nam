@@ -16,6 +16,8 @@ try:
         PRODID, CALENDAR_VERSION, TIMEZONE,
         CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
+        MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
+        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
     )
     from .holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -28,6 +30,8 @@ except ImportError:
         PRODID, CALENDAR_VERSION, TIMEZONE,
         CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
+        MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
+        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
     )
     from holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -36,7 +40,9 @@ except ImportError:
     from lunar_converter import to_lunar, is_last_day_of_lunar_month, LunarDate
 
 
-def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Event:
+def _build_event_for_day(
+    d: date, lunar: LunarDate, language: str = 'vi', minimal: bool = False,
+) -> Event:
     """Tạo VEVENT tối giản cho 1 ngày: Ngày âm + Ngày lễ lớn nếu có."""
     day = lunar.lunar_day
     m = lunar.lunar_month_abs
@@ -44,12 +50,13 @@ def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Eve
     # 1. Xác định ngày lễ lớn (nếu có)
     holiday: Optional[HolidayInfo] = None
 
-    if m == 12 and is_last_day_of_lunar_month(d):
-        holiday = GIAO_THUA
-    elif (m, day) in FIXED_LUNAR_HOLIDAYS:
-        holiday = FIXED_LUNAR_HOLIDAYS[(m, day)]
-    elif (d.month, d.day) in FIXED_SOLAR_HOLIDAYS:
-        holiday = FIXED_SOLAR_HOLIDAYS[(d.month, d.day)]
+    if not minimal:
+        if m == 12 and is_last_day_of_lunar_month(d):
+            holiday = GIAO_THUA
+        elif (m, day) in FIXED_LUNAR_HOLIDAYS:
+            holiday = FIXED_LUNAR_HOLIDAYS[(m, day)]
+        elif (d.month, d.day) in FIXED_SOLAR_HOLIDAYS:
+            holiday = FIXED_SOLAR_HOLIDAYS[(d.month, d.day)]
 
     # 2. Tiêu đề (Summary): Tối giản, tinh tế
     if holiday:
@@ -71,7 +78,9 @@ def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Eve
         summary = f'Lunar {day}/{m}'
         if lunar.is_leap_month:
             summary += ' (leap month)'
-        if holiday:
+        if minimal:
+            summary = 'Full Moon' if day == 15 else 'Lunar New Year'
+        elif holiday:
             if not holiday.name_en or not holiday.description_en:
                 raise ValueError(f'Missing English translation for holiday: {holiday.name}')
             summary += f' • {holiday.name_en}'
@@ -84,13 +93,17 @@ def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Eve
         year_name = f'{HEAVENLY_STEMS_EN[stem]} {EARTHLY_BRANCHES_EN[branch]}'
         month_label = 'leap month' if lunar.is_leap_month else 'month'
         desc_lines = [f'Lunar day {day}, {month_label} {m} ({year_name} year)']
-        if holiday:
+        if minimal:
+            desc_lines.append(FULL_MOON_NOTE_EN if day == 15 else LUNAR_NEW_YEAR_NOTE_EN)
+        elif holiday:
             desc_lines.append(f'{holiday.name_en}: {holiday.description_en}')
         description = '\n'.join(desc_lines)
 
     # 4. Khởi tạo VEVENT
     event = Event()
     uid_prefix = 'vnlunar-en' if language == 'en' else 'vnlunar'
+    if minimal:
+        uid_prefix = 'vnlunar-en-minimal'
     event.add('uid', f"{uid_prefix}-{d.strftime('%Y%m%d')}@cmduyeen")
     event.add('summary', summary)
     event.add('description', description)
@@ -98,7 +111,7 @@ def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Eve
     event.add('dtend', d + timedelta(days=1))
 
     # Đánh dấu ngày nghỉ lễ chính thức
-    if holiday and holiday.is_public_holiday:
+    if (minimal and day == 1) or (holiday and holiday.is_public_holiday):
         event.add('x-microsoft-cdo-importance', '2')
         event.add('color', '#E53935')  # Đỏ nổi bật cho ngày nghỉ lễ
     elif day in (1, 15):
@@ -115,11 +128,18 @@ def _build_event_for_day(d: date, lunar: LunarDate, language: str = 'vi') -> Eve
 class LunarCalendarGenerator:
     """Tạo file .ics lịch âm Việt Nam theo khoảng năm cho trước."""
 
-    def __init__(self, language: str = 'vi'):
+    def __init__(self, language: str = 'vi', minimal: bool = False):
         if language not in ('vi', 'en'):
             raise ValueError(f'Unsupported calendar language: {language}')
+        if minimal and language != 'en':
+            raise ValueError('Minimal calendars require English (language="en")')
         self.language = language
+        self.minimal = minimal
         self.calendar_name = CALENDAR_NAME_EN if language == 'en' else CALENDAR_NAME
+        self.calendar_description = CALENDAR_DESCRIPTION_EN if language == 'en' else CALENDAR_DESCRIPTION
+        if minimal:
+            self.calendar_name = MINIMAL_CALENDAR_NAME_EN
+            self.calendar_description = MINIMAL_CALENDAR_DESCRIPTION_EN
 
     def _make_calendar(self, name: Optional[str] = None) -> Calendar:
         """Khởi tạo Calendar object với metadata chuẩn."""
@@ -130,7 +150,7 @@ class LunarCalendarGenerator:
         cal.add('method',   'PUBLISH')
         cal.add('x-wr-calname', name if name is not None else self.calendar_name)
         cal.add('x-wr-timezone',  TIMEZONE)
-        cal.add('x-wr-caldesc', CALENDAR_DESCRIPTION_EN if self.language == 'en' else CALENDAR_DESCRIPTION)
+        cal.add('x-wr-caldesc', self.calendar_description)
         cal.add('x-apple-calendar-color', '#E53935')
         return cal
 
@@ -156,8 +176,12 @@ class LunarCalendarGenerator:
         while current <= end:
             try:
                 lunar = to_lunar(current)
-                event = _build_event_for_day(current, lunar, self.language)
-                cal.add_component(event)
+                if (
+                    not self.minimal or lunar.lunar_day == 15
+                    or (lunar.lunar_day == 1 and lunar.lunar_month_abs == 1 and not lunar.is_leap_month)
+                ):
+                    event = _build_event_for_day(current, lunar, self.language, self.minimal)
+                    cal.add_component(event)
             except Exception as exc:
                 if self.language == 'en':
                     raise RuntimeError(f'Failed to generate English event for {current}') from exc

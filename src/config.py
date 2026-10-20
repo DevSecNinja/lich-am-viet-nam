@@ -31,6 +31,14 @@ CALENDAR_DESCRIPTION_EN = (
 )
 PRODID_EN = '-//VietLunarCalendar//Vietnamese Lunar Calendar//EN'
 
+MINIMAL_CALENDAR_NAME_EN = 'Vietnamese Lunar Calendar - Minimal'
+MINIMAL_CALENDAR_DESCRIPTION_EN = (
+    "Full Moon (traditional lunar day 15, including leap months) and Lunar New Year's Day only. "
+    'Not exact astronomical full moon times. Time zone GMT+7 - Asia/Ho_Chi_Minh.'
+)
+FULL_MOON_NOTE_EN = 'Traditional lunar day 15, not an exact astronomical full moon time.'
+LUNAR_NEW_YEAR_NOTE_EN = 'First day of the lunar year (non-leap month 1).'
+
 HEAVENLY_STEMS_EN = {
     'Giáp': 'Yang Wood', 'Ất': 'Yin Wood',
     'Bính': 'Yang Fire', 'Đinh': 'Yin Fire',

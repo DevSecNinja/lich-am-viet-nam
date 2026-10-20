@@ -3,6 +3,7 @@ from dataclasses import replace
 from datetime import date, timedelta
 import io
 from pathlib import Path
+import re
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -14,6 +15,7 @@ from main import cleanup_past_files, main
 from src.config import (
     CALENDAR_DESCRIPTION_EN, CALENDAR_NAME_EN, EARTHLY_BRANCHES_EN,
     HEAVENLY_STEMS_EN, PRODID_EN,
+    MINIMAL_CALENDAR_DESCRIPTION_EN, MINIMAL_CALENDAR_NAME_EN,
 )
 from src.holidays import FIXED_LUNAR_HOLIDAYS, FIXED_SOLAR_HOLIDAYS, GIAO_THUA, HolidayInfo
 from src.ics_generator import LunarCalendarGenerator, _build_event_for_day
@@ -171,6 +173,93 @@ class FeedRegressionTests(unittest.TestCase):
                 self.assertTrue(all(len(line) <= 75 for line in raw.split(b'\r\n')))
 
 
+class MinimalFeedTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.full = Calendar.from_ical((ROOT / 'output' / 'viet_lunar_en_latest.ics').read_bytes())
+        events = cls.full.walk('VEVENT')
+        cls.start_year = events[0].decoded('DTSTART').year
+        cls.end_year = events[-1].decoded('DTSTART').year
+        cls.minimal = LunarCalendarGenerator('en', minimal=True).generate_range(cls.start_year, cls.end_year)
+
+    def test_exact_selection_titles_and_distinct_stable_identifiers(self):
+        expected = {}
+        for event in self.full.walk('VEVENT'):
+            match = re.match(r'Lunar day (\d+), (leap )?month (\d+) ', str(event['DESCRIPTION']))
+            self.assertIsNotNone(match)
+            day, leap, month = match.groups()
+            if day == '15':
+                expected[event.decoded('DTSTART')] = 'Full Moon'
+            elif day == '1' and month == '1' and not leap:
+                expected[event.decoded('DTSTART')] = 'Lunar New Year'
+        actual = self.minimal.walk('VEVENT')
+        self.assertEqual(len(actual), len(expected))
+        self.assertEqual(len({str(event['UID']) for event in actual}), len(actual))
+        self.assertEqual({event.decoded('DTSTART'): str(event['SUMMARY']) for event in actual}, expected)
+        for event in actual:
+            solar = event.decoded('DTSTART')
+            self.assertEqual(event.decoded('DTEND'), solar + timedelta(days=1))
+            self.assertEqual(str(event['UID']), f'vnlunar-en-minimal-{solar:%Y%m%d}@cmduyeen')
+            self.assertTrue(str(event['DESCRIPTION']).isascii())
+
+    def test_minimal_metadata_and_checked_in_artifacts(self):
+        self.assertEqual(str(self.minimal['X-WR-CALDESC']), MINIMAL_CALENDAR_DESCRIPTION_EN)
+        self.assertEqual(
+            str(self.minimal['X-WR-CALNAME']),
+            f'{MINIMAL_CALENDAR_NAME_EN} {self.start_year}\u2013{self.end_year}',
+        )
+        output = ROOT / 'output'
+        latest = (output / 'viet_lunar_en_minimal_latest.ics').read_bytes()
+        self.assertEqual(latest, (output / f'viet_lunar_en_minimal_{self.start_year}_{self.end_year}.ics').read_bytes())
+        self.assertEqual(without_timestamps(Calendar.from_ical(latest)), without_timestamps(self.minimal))
+        with zipfile.ZipFile(output / f'viet_lunar_en_minimal_yearly_{self.start_year}_{self.end_year}.zip') as archive:
+            names = [f'viet_lunar_en_minimal_{year}.ics' for year in range(self.start_year, self.end_year + 1)]
+            self.assertEqual(archive.namelist(), names)
+            for year, name in zip(range(self.start_year, self.end_year + 1), names):
+                raw = (output / name).read_bytes()
+                self.assertEqual(archive.read(name), raw)
+                generated = LunarCalendarGenerator('en', minimal=True).generate_year(year)
+                self.assertEqual(without_timestamps(Calendar.from_ical(raw)), without_timestamps(generated))
+
+    def test_full_moon_titles_ignore_holiday_collisions(self):
+        solar = date(2026, 1, 1)
+        base = to_lunar(solar)
+        for month in (1, 4, 7, 8):
+            with self.subTest(month=month):
+                lunar = replace(base, lunar_month=month, lunar_day=15, is_leap_month=False)
+                event = _build_event_for_day(solar, lunar, 'en', minimal=True)
+                self.assertEqual(str(event['SUMMARY']), 'Full Moon')
+                self.assertIn('not an exact astronomical full moon time', str(event['DESCRIPTION']))
+                self.assertNotIn(FIXED_LUNAR_HOLIDAYS[(month, 15)].name_en, str(event['DESCRIPTION']))
+                self.assertNotIn('X-MICROSOFT-CDO-IMPORTANCE', event)
+                self.assertEqual(str(event['COLOR']), '#FB8C00')
+
+    def test_filter_includes_leap_full_moons_but_not_leap_new_year(self):
+        solar = date(2026, 2, 17)
+        base = to_lunar(solar)
+        generator = LunarCalendarGenerator('en', minimal=True)
+        for month, day, expected in (
+            (1, 1, 'Lunar New Year'), (-1, 1, None), (-1, 15, 'Full Moon'),
+            (-6, 15, 'Full Moon'), (1, 2, None), (1, 3, None),
+            (12, 29, None), (12, 30, None), (6, 1, None), (6, 7, None),
+        ):
+            with self.subTest(month=month, day=day):
+                lunar = replace(base, lunar_month=month, lunar_day=day, is_leap_month=month < 0)
+                calendar = generator._make_calendar()
+                with patch('src.ics_generator.to_lunar', return_value=lunar):
+                    generator._fill_calendar(calendar, solar, solar)
+                self.assertEqual(
+                    [str(event['SUMMARY']) for event in calendar.walk('VEVENT')],
+                    [expected] if expected else [],
+                )
+
+    def test_minimal_is_english_only_and_full_is_default(self):
+        self.assertFalse(LunarCalendarGenerator('en').minimal)
+        self.assertFalse(LunarCalendarGenerator().minimal)
+        with self.assertRaisesRegex(ValueError, 'Minimal calendars require English'):
+            LunarCalendarGenerator(minimal=True)
+
+
 class CommandLineTests(unittest.TestCase):
     def run_main(self, *arguments):
         with patch('sys.argv', ['main.py', *arguments]), patch('main.HAS_TQDM', False), \
@@ -218,6 +307,48 @@ class CommandLineTests(unittest.TestCase):
             with self.assertRaises(SystemExit) as error:
                 main()
         self.assertEqual(error.exception.code, 2)
+
+    def test_minimal_cli_outputs_preserve_full_feeds_and_latest_on_year_mode(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            full_names = ['viet_lunar_latest.ics', 'viet_lunar_en_latest.ics', 'viet_lunar_en_2025.ics']
+            for name in full_names:
+                (output / name).write_bytes(b'Existing full feed')
+            self.run_main('--language', 'en', '--minimal', '--start', '2026', '--end', '2027',
+                          '--split', '--output-dir', directory)
+            latest = (output / 'viet_lunar_en_minimal_latest.ics').read_bytes()
+            self.assertEqual(latest, (output / 'viet_lunar_en_minimal_2026_2027.ics').read_bytes())
+            with zipfile.ZipFile(output / 'viet_lunar_en_minimal_yearly_2026_2027.zip') as archive:
+                self.assertEqual(archive.namelist(), ['viet_lunar_en_minimal_2026.ics', 'viet_lunar_en_minimal_2027.ics'])
+            self.run_main('--language', 'en', '--minimal', '--year', '2028', '--output-dir', directory)
+            self.assertTrue((output / 'viet_lunar_en_minimal_2028.ics').is_file())
+            self.assertEqual((output / 'viet_lunar_en_minimal_latest.ics').read_bytes(), latest)
+            for name in full_names:
+                self.assertEqual((output / name).read_bytes(), b'Existing full feed')
+
+    def test_cleanup_is_isolated_between_all_three_feeds(self):
+        variants = [('vi', False, 'viet_lunar'), ('en', False, 'viet_lunar_en'),
+                    ('en', True, 'viet_lunar_en_minimal')]
+        for language, minimal, prefix in variants:
+            with self.subTest(prefix=prefix), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory)
+                names = {f'{p}_{suffix}' for _, _, p in variants for suffix in (
+                    '2025.ics', '2025_2035.ics', 'yearly_2025_2035.zip', 'latest.ics', '2026.ics',
+                )}
+                for name in names:
+                    (output / name).touch()
+                expired = {f'{prefix}_{suffix}' for suffix in ('2025.ics', '2025_2035.ics', 'yearly_2025_2035.zip')}
+                self.assertEqual(set(cleanup_past_files(output, 2026, language, minimal)), expired)
+                self.assertEqual({path.name for path in output.iterdir()}, names - expired)
+
+    def test_minimal_without_english_exits_before_writing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch('sys.argv', ['main.py', '--minimal', '--output-dir', directory]), \
+                    contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as error:
+                    main()
+            self.assertEqual(error.exception.code, 2)
+            self.assertEqual(list(Path(directory).iterdir()), [])
 
 
 if __name__ == '__main__':

@@ -13,7 +13,12 @@ Outlook. Subscribe in your existing calendar app without installing another app.
 
 ## Subscribe
 
-Open the [English subscription file](output/viet_lunar_en_latest.ics), select
+Choose an English subscription:
+
+- [Full daily calendar](output/viet_lunar_en_latest.ics): lunar dates and all included holidays.
+- [Minimal calendar](output/viet_lunar_en_minimal_latest.ics): only **Full Moon** and **Lunar New Year**.
+
+Open the chosen file, select
 **Raw**, and copy the resulting URL into your calendar app. The raw URL identifies
 the repository and branch you are viewing: when trying this change in a fork,
 use that fork's branch, not upstream `main` until the English file is available
@@ -26,8 +31,23 @@ The existing Vietnamese subscription is unchanged:
 https://raw.githubusercontent.com/cmduyeen/lich-am-viet-nam/main/output/viet_lunar_latest.ics
 ```
 
-Choose one language to avoid seeing two events for each day. English events have
-their own stable identifiers, so they will not overwrite Vietnamese events.
+Choose one feed to avoid duplicate events. Each English feed has its own stable
+identifiers, so the minimal, full English and Vietnamese feeds do not overwrite
+one another.
+
+### Minimal calendar
+
+The minimal feed contains only these two event kinds, with exactly these titles:
+
+- **Full Moon**: the traditional **15th day of every lunar month**, including leap
+  months. This follows the existing lunar calendar convention, **not the exact
+  astronomical full moon instant or date**. Festival names such as Mid-Autumn
+  Festival do not replace the Full Moon title.
+- **Lunar New Year**: day 1 of **non-leap lunar month 1** only. New Year's Eve,
+  days 2 and 3, and day 1 of a leap month are excluded.
+
+Both are all-day events. Descriptions retain the lunar date and leap-month marker
+where applicable. No new astronomical calculations or dependencies are involved.
 
 ### Set up your calendar app
 
@@ -48,7 +68,7 @@ does not receive future updates. Refresh timing is controlled by your calendar a
 
 ## What the events mean
 
-Titles use **lunar day/month**, not the Gregorian date. Examples:
+The full daily feed's titles use **lunar day/month**, not the Gregorian date. Examples:
 
 | Event | English title |
 | --- | --- |
@@ -62,13 +82,13 @@ Descriptions translate the traditional stem-and-branch year into
 English, for example **Yang Fire Horse year**. Vietnamese zodiac conventions,
 including the **Cat** and **Buffalo**, are retained.
 
-The English feed uses the same date calculations, holiday precedence, all-day
+The full English feed uses the same date calculations, holiday precedence, all-day
 event boundaries and colours as the Vietnamese feed. It adds an explicit
 **leap month** label to English titles and descriptions; the Vietnamese feed
 keeps its existing formatting. This translation does not change the underlying
 calendar algorithm or holiday rules.
 
-## Included holidays
+## Included holidays (full daily feed)
 
 ### Public holidays
 
@@ -113,24 +133,32 @@ python main.py --split
 python main.py --language en --split
 python main.py --language en --start 2026 --end 2036
 python main.py --language en --year 2027
+python main.py --language en --minimal --split
 ```
 
 Generation status messages remain in Vietnamese. On Windows terminals that do
 not default to UTF-8, set `$env:PYTHONUTF8 = '1'` in PowerShell before running.
 
-English files in `output` are:
+Full English files in `output` are:
 
 - `viet_lunar_en_latest.ics`: rolling subscription feed.
 - `viet_lunar_en_<start>_<end>.ics`: combined calendar for the requested years.
 - `viet_lunar_en_<year>.ics`: single-year calendar (`--split` or `--year`).
 - `viet_lunar_en_yearly_<start>_<end>.zip`: yearly calendars (`--split`, multiple years).
 
+`--minimal` requires `--language en` and uses the separate prefix
+`viet_lunar_en_minimal` with the same rolling, year-range, single-year and ZIP
+filename patterns. Its subscription file is `viet_lunar_en_minimal_latest.ics`.
+For example, `python main.py --language en --minimal --year 2027` only writes
+`viet_lunar_en_minimal_2027.ics`. Omitting `--minimal` preserves the full feed.
+
 `--year` only writes a single-year file and does not replace the `latest` feed.
 `--output-dir` selects a different output directory. Cleanup removes past-year
-files only for the selected language and leaves the other language untouched.
+files only for the selected language and mode, leaving all other feeds untouched.
 
-The GitHub Actions workflow generates both languages on pushes to `main`, on
-January 1 each year and on manual runs. It retains the existing rolling range.
+The GitHub Actions workflow generates both full languages and minimal English
+on pushes to `main`, on January 1 each year and on manual runs. It retains the
+existing rolling range.
 Scheduled workflows may need to be enabled in a fork before automatic updates run.
 
 Run the regression tests with:

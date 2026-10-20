@@ -10,6 +10,7 @@ Cách dùng:
     python main.py --start 2026 --end 2036  # Tạo lịch cho khoảng năm tùy chọn
     python main.py --year 2027              # Chỉ tạo lịch cho một năm cụ thể
     python main.py --language en --split    # Generate English calendars alongside Vietnamese files
+    python main.py --language en --minimal --split  # Only lunar day 15 and Lunar New Year's Day
 """
 import argparse
 import re
@@ -74,19 +75,25 @@ def create_zip_archive(files: list[Path], output_zip: Path):
     return output_zip
 
 
-def cleanup_past_files(output_path: Path, current_year: int, language: str = 'vi') -> list[str]:
+def cleanup_past_files(
+    output_path: Path, current_year: int, language: str = 'vi', minimal: bool = False,
+) -> list[str]:
     """
     Tự động xóa các file của những năm đã qua để giữ thư mục output luôn sạch sẽ.
     - Xóa file lẻ từng năm: viet_lunar_{year}.ics nếu year < current_year
     - Xóa file tổng hợp cũ: viet_lunar_{start}_{end}.ics nếu start < current_year
     - Xóa file zip cũ: viet_lunar_yearly_{start}_{end}.zip nếu start < current_year
-    English files use the separate viet_lunar_en prefix.
+    English files use viet_lunar_en; minimal English files use viet_lunar_en_minimal.
     """
+    if minimal and language != 'en':
+        raise ValueError('Minimal calendars require English (language="en")')
     removed: list[str] = []
     if not output_path.exists():
         return removed
 
     prefix = 'viet_lunar_en' if language == 'en' else 'viet_lunar'
+    if minimal:
+        prefix += '_minimal'
     single_year_re = re.compile(rf'^{prefix}_(\d{{4}})\.ics$')
     range_ics_re = re.compile(rf'^{prefix}_(\d{{4}})_(\d{{4}})\.ics$')
     range_zip_re = re.compile(rf'^{prefix}_yearly_(\d{{4}})_(\d{{4}})\.zip$')
@@ -146,10 +153,16 @@ def main():
         help='Calendar language: vi (default) or en (English, separate output files)',
     )
     parser.add_argument(
+        '--minimal', action='store_true',
+        help="English only: traditional lunar day 15 and Lunar New Year's Day",
+    )
+    parser.add_argument(
         '--output-dir', type=str, default=OUTPUT_DIR,
         help=f'Thư mục output (mặc định: {OUTPUT_DIR})',
     )
     args = parser.parse_args()
+    if args.minimal and args.language != 'en':
+        parser.error('--minimal requires --language en')
 
     print_banner()
 
@@ -170,15 +183,17 @@ def main():
     output_path.mkdir(parents=True, exist_ok=True)
 
     # ── 0. Tự động dọn dẹp các file của những năm đã qua ──────────
-    removed_files = cleanup_past_files(output_path, current_year, args.language)
+    removed_files = cleanup_past_files(output_path, current_year, args.language, args.minimal)
     if removed_files:
         print(f'🧹 Đã tự động dọn dẹp {len(removed_files)} file của các năm đã qua:')
         for rf in removed_files:
             print(f'   🗑️ {rf}')
         print()
 
-    gen = LunarCalendarGenerator(language=args.language)
+    gen = LunarCalendarGenerator(language=args.language, minimal=args.minimal)
     prefix = 'viet_lunar_en' if args.language == 'en' else 'viet_lunar'
+    if args.minimal:
+        prefix += '_minimal'
     total_files: list[Path] = []
 
     print(f'📅 Khoảng thời gian : {start_year} → {end_year}')

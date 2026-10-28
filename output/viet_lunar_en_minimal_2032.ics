@@ -3,141 +3,251 @@ VERSION:2.0
 PRODID:-//VietLunarCalendar//Vietnamese Lunar Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALDESC:Full Moon (traditional lunar day 15, including leap months) an
- d Lunar New Year's Day only. Not exact astronomical full moon times. Time 
- zone GMT+7 - Asia/Ho_Chi_Minh.
+X-WR-CALDESC:Full Moon (traditional lunar day 15), the first day of every 
+ lunar month (including leap months) and Lunar New Year's Day only. Not exa
+ ct astronomical full moon times. Time zone GMT+7 - Asia/Ho_Chi_Minh.
 X-WR-CALNAME:Vietnamese Lunar Calendar - Minimal 2032
 X-APPLE-CALENDAR-COLOR:#E53935
 X-WR-TIMEZONE:Asia/Ho_Chi_Minh
 BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320113
+DTEND;VALUE=DATE:20320114
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320113@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 12 (Yin Metal Pig year)\nFirst day of the 
+ lunar month (lunar day 1).
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320127
 DTEND;VALUE=DATE:20320128
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320127@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 12 (Yin Metal Pig year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 12 (Yin Metal Pig year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Lunar New Year
 DTSTART;VALUE=DATE:20320211
 DTEND;VALUE=DATE:20320212
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320211@cmduyeen
 COLOR:#E53935
-DESCRIPTION:Lunar day 1\, month 1 (Yang Water Rat year)\nFirst day of the l
- unar year (non-leap month 1).
+DESCRIPTION:Lunar day 1\, month 1 (Yang Water Rat year)\nFirst day of the 
+ lunar year (non-leap month 1).
 X-MICROSOFT-CDO-IMPORTANCE:2
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320225
 DTEND;VALUE=DATE:20320226
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320225@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 1 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 1 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320312
+DTEND;VALUE=DATE:20320313
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320312@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 2 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320326
 DTEND;VALUE=DATE:20320327
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320326@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 2 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 2 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320410
+DTEND;VALUE=DATE:20320411
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320410@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 3 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320424
 DTEND;VALUE=DATE:20320425
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320424@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 3 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 3 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320509
+DTEND;VALUE=DATE:20320510
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320509@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 4 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320523
 DTEND;VALUE=DATE:20320524
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320523@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 4 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 4 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320608
+DTEND;VALUE=DATE:20320609
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320608@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 5 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320622
 DTEND;VALUE=DATE:20320623
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320622@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 5 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 5 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320707
+DTEND;VALUE=DATE:20320708
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320707@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 6 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320721
 DTEND;VALUE=DATE:20320722
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320721@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 6 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 6 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320806
+DTEND;VALUE=DATE:20320807
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320806@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 7 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320820
 DTEND;VALUE=DATE:20320821
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320820@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 7 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 7 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20320905
+DTEND;VALUE=DATE:20320906
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20320905@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 8 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20320919
 DTEND;VALUE=DATE:20320920
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20320919@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 8 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 8 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20321004
+DTEND;VALUE=DATE:20321005
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20321004@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 9 (Yang Water Rat year)\nFirst day of the 
+ lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20321018
 DTEND;VALUE=DATE:20321019
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20321018@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 9 (Yang Water Rat year)\nTraditional lunar
-  day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 9 (Yang Water Rat year)\nTraditional luna
+ r day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20321103
+DTEND;VALUE=DATE:20321104
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20321103@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 10 (Yang Water Rat year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20321117
 DTEND;VALUE=DATE:20321118
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20321117@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 10 (Yang Water Rat year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 10 (Yang Water Rat year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20321203
+DTEND;VALUE=DATE:20321204
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20321203@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 11 (Yang Water Rat year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20321217
 DTEND;VALUE=DATE:20321218
-DTSTAMP:20261020T191859Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20321217@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 11 (Yang Water Rat year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 11 (Yang Water Rat year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
 END:VEVENT
 END:VCALENDAR

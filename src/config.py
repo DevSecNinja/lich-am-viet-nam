@@ -34,17 +34,20 @@ PRODID_EN = '-//VietLunarCalendar//Vietnamese Lunar Calendar//EN'
 MINIMAL_CALENDAR_NAME_EN = 'Vietnamese Lunar Calendar - Minimal'
 MINIMAL_CALENDAR_NAME = 'Lịch Âm Việt Nam - Tối Giản'
 MINIMAL_CALENDAR_DESCRIPTION = (
-    'Chỉ gồm Rằm (ngày 15 âm lịch, kể cả tháng nhuận) và Mùng 1 Tết Nguyên Đán '
-    '(tháng Giêng không nhuận). Không phải thời điểm trăng tròn thiên văn chính xác. '
+    'Chỉ gồm Rằm (ngày 15 âm lịch), Mùng 1 mỗi tháng âm lịch (kể cả tháng nhuận) '
+    'và Tết Nguyên Đán. Không phải thời điểm trăng tròn thiên văn chính xác. '
     'Múi giờ GMT+7 - Asia/Ho_Chi_Minh.'
 )
+FIRST_DAY_NOTE = 'Ngày đầu tiên của tháng âm lịch (mùng 1).'
 FULL_MOON_NOTE = 'Ngày 15 âm lịch theo truyền thống, không phải thời điểm trăng tròn thiên văn chính xác.'
 LUNAR_NEW_YEAR_NOTE = 'Ngày đầu năm âm lịch (mùng 1 tháng Giêng không nhuận).'
 
 MINIMAL_CALENDAR_DESCRIPTION_EN = (
-    "Full Moon (traditional lunar day 15, including leap months) and Lunar New Year's Day only. "
+    "Full Moon (traditional lunar day 15), the first day of every lunar month (including leap months) "
+    "and Lunar New Year's Day only. "
     'Not exact astronomical full moon times. Time zone GMT+7 - Asia/Ho_Chi_Minh.'
 )
+FIRST_DAY_NOTE_EN = 'First day of the lunar month (lunar day 1).'
 FULL_MOON_NOTE_EN = 'Traditional lunar day 15, not an exact astronomical full moon time.'
 LUNAR_NEW_YEAR_NOTE_EN = 'First day of the lunar year (non-leap month 1).'
 

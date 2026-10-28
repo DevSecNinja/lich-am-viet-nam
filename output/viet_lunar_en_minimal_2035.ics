@@ -3,141 +3,261 @@ VERSION:2.0
 PRODID:-//VietLunarCalendar//Vietnamese Lunar Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALDESC:Full Moon (traditional lunar day 15, including leap months) an
- d Lunar New Year's Day only. Not exact astronomical full moon times. Time 
- zone GMT+7 - Asia/Ho_Chi_Minh.
+X-WR-CALDESC:Full Moon (traditional lunar day 15), the first day of every 
+ lunar month (including leap months) and Lunar New Year's Day only. Not exa
+ ct astronomical full moon times. Time zone GMT+7 - Asia/Ho_Chi_Minh.
 X-WR-CALNAME:Vietnamese Lunar Calendar - Minimal 2035
 X-APPLE-CALENDAR-COLOR:#E53935
 X-WR-TIMEZONE:Asia/Ho_Chi_Minh
 BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350109
+DTEND;VALUE=DATE:20350110
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350109@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 12 (Yang Wood Tiger year)\nFirst day of th
+ e lunar month (lunar day 1).
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350123
 DTEND;VALUE=DATE:20350124
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350123@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 12 (Yang Wood Tiger year)\nTraditional lun
- ar day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 12 (Yang Wood Tiger year)\nTraditional lu
+ nar day 15\, not an exact astronomical full moon time.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Lunar New Year
 DTSTART;VALUE=DATE:20350208
 DTEND;VALUE=DATE:20350209
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350208@cmduyeen
 COLOR:#E53935
-DESCRIPTION:Lunar day 1\, month 1 (Yin Wood Cat year)\nFirst day of the lun
- ar year (non-leap month 1).
+DESCRIPTION:Lunar day 1\, month 1 (Yin Wood Cat year)\nFirst day of the lu
+ nar year (non-leap month 1).
 X-MICROSOFT-CDO-IMPORTANCE:2
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350222
 DTEND;VALUE=DATE:20350223
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350222@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 1 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 1 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350310
+DTEND;VALUE=DATE:20350311
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350310@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 2 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350324
 DTEND;VALUE=DATE:20350325
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350324@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 2 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 2 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350408
+DTEND;VALUE=DATE:20350409
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350408@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 3 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350422
 DTEND;VALUE=DATE:20350423
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350422@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 3 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 3 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350508
+DTEND;VALUE=DATE:20350509
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350508@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 4 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350522
 DTEND;VALUE=DATE:20350523
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350522@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 4 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 4 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350606
+DTEND;VALUE=DATE:20350607
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350606@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 5 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350620
 DTEND;VALUE=DATE:20350621
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350620@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 5 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 5 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350705
+DTEND;VALUE=DATE:20350706
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350705@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 6 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350719
 DTEND;VALUE=DATE:20350720
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350719@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 6 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 6 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350804
+DTEND;VALUE=DATE:20350805
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350804@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 7 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350818
 DTEND;VALUE=DATE:20350819
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350818@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 7 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 7 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20350902
+DTEND;VALUE=DATE:20350903
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20350902@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 8 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20350916
 DTEND;VALUE=DATE:20350917
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20350916@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 8 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 8 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20351001
+DTEND;VALUE=DATE:20351002
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20351001@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 9 (Yin Wood Cat year)\nFirst day of the lu
+ nar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20351015
 DTEND;VALUE=DATE:20351016
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20351015@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 9 (Yin Wood Cat year)\nTraditional lunar d
- ay 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 9 (Yin Wood Cat year)\nTraditional lunar 
+ day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20351031
+DTEND;VALUE=DATE:20351101
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20351031@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 10 (Yin Wood Cat year)\nFirst day of the l
+ unar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20351114
 DTEND;VALUE=DATE:20351115
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20351114@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 10 (Yin Wood Cat year)\nTraditional lunar 
- day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 10 (Yin Wood Cat year)\nTraditional lunar
+  day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20351130
+DTEND;VALUE=DATE:20351201
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20351130@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 11 (Yin Wood Cat year)\nFirst day of the l
+ unar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20351214
 DTEND;VALUE=DATE:20351215
-DTSTAMP:20261020T191903Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20351214@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 11 (Yin Wood Cat year)\nTraditional lunar 
- day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 11 (Yin Wood Cat year)\nTraditional lunar
+  day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20351229
+DTEND;VALUE=DATE:20351230
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20351229@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 12 (Yin Wood Cat year)\nFirst day of the l
+ unar month (lunar day 1).
 END:VEVENT
 END:VCALENDAR

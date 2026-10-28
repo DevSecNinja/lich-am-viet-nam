@@ -17,9 +17,9 @@ try:
         CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
         MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
-        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
+        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN, FIRST_DAY_NOTE_EN,
         MINIMAL_CALENDAR_NAME, MINIMAL_CALENDAR_DESCRIPTION,
-        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE,
+        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE, FIRST_DAY_NOTE,
     )
     from .holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -33,9 +33,9 @@ except ImportError:
         CALENDAR_NAME_EN, CALENDAR_DESCRIPTION_EN, PRODID_EN,
         HEAVENLY_STEMS_EN, EARTHLY_BRANCHES_EN,
         MINIMAL_CALENDAR_NAME_EN, MINIMAL_CALENDAR_DESCRIPTION_EN,
-        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN,
+        FULL_MOON_NOTE_EN, LUNAR_NEW_YEAR_NOTE_EN, FIRST_DAY_NOTE_EN,
         MINIMAL_CALENDAR_NAME, MINIMAL_CALENDAR_DESCRIPTION,
-        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE,
+        FULL_MOON_NOTE, LUNAR_NEW_YEAR_NOTE, FIRST_DAY_NOTE,
     )
     from holidays import (
         FIXED_SOLAR_HOLIDAYS, FIXED_LUNAR_HOLIDAYS,
@@ -63,8 +63,12 @@ def _build_event_for_day(
             holiday = FIXED_SOLAR_HOLIDAYS[(d.month, d.day)]
 
     # 2. Tiêu đề (Summary): Tối giản, tinh tế
+    is_new_year = day == 1 and m == 1 and not lunar.is_leap_month
     if minimal:
-        summary = 'Rằm' if day == 15 else 'Tết Nguyên Đán'
+        if day == 15:
+            summary = 'Rằm'
+        else:
+            summary = 'Tết Nguyên Đán' if is_new_year else 'Mùng 1'
     elif holiday:
         summary = f'{day}/{m} • {holiday.name}'
     elif day == 1:
@@ -79,7 +83,9 @@ def _build_event_for_day(
     if minimal:
         month_label = f'{m} nhuận' if lunar.is_leap_month else str(m)
         desc_lines = [f'Ngày {day} tháng {month_label} âm lịch ({lunar.can_chi_year})']
-        desc_lines.append(FULL_MOON_NOTE if day == 15 else LUNAR_NEW_YEAR_NOTE)
+        desc_lines.append(
+            FULL_MOON_NOTE if day == 15 else LUNAR_NEW_YEAR_NOTE if is_new_year else FIRST_DAY_NOTE
+        )
     elif holiday:
         desc_lines.append(f'{holiday.name}: {holiday.description}')
     description = '\n'.join(desc_lines)
@@ -89,7 +95,10 @@ def _build_event_for_day(
         if lunar.is_leap_month:
             summary += ' (leap month)'
         if minimal:
-            summary = 'Full Moon' if day == 15 else 'Lunar New Year'
+            if day == 15:
+                summary = 'Full Moon'
+            else:
+                summary = 'Lunar New Year' if is_new_year else 'First Day of Lunar Month'
         elif holiday:
             if not holiday.name_en or not holiday.description_en:
                 raise ValueError(f'Missing English translation for holiday: {holiday.name}')
@@ -104,7 +113,9 @@ def _build_event_for_day(
         month_label = 'leap month' if lunar.is_leap_month else 'month'
         desc_lines = [f'Lunar day {day}, {month_label} {m} ({year_name} year)']
         if minimal:
-            desc_lines.append(FULL_MOON_NOTE_EN if day == 15 else LUNAR_NEW_YEAR_NOTE_EN)
+            desc_lines.append(
+                FULL_MOON_NOTE_EN if day == 15 else LUNAR_NEW_YEAR_NOTE_EN if is_new_year else FIRST_DAY_NOTE_EN
+            )
         elif holiday:
             desc_lines.append(f'{holiday.name_en}: {holiday.description_en}')
         description = '\n'.join(desc_lines)
@@ -121,7 +132,7 @@ def _build_event_for_day(
     event.add('dtend', d + timedelta(days=1))
 
     # Đánh dấu ngày nghỉ lễ chính thức
-    if (minimal and day == 1) or (holiday and holiday.is_public_holiday):
+    if (minimal and is_new_year) or (holiday and holiday.is_public_holiday):
         event.add('x-microsoft-cdo-importance', '2')
         event.add('color', '#E53935')  # Đỏ nổi bật cho ngày nghỉ lễ
     elif day in (1, 15):
@@ -186,10 +197,7 @@ class LunarCalendarGenerator:
         while current <= end:
             try:
                 lunar = to_lunar(current)
-                if (
-                    not self.minimal or lunar.lunar_day == 15
-                    or (lunar.lunar_day == 1 and lunar.lunar_month_abs == 1 and not lunar.is_leap_month)
-                ):
+                if not self.minimal or lunar.lunar_day in (1, 15):
                     event = _build_event_for_day(current, lunar, self.language, self.minimal)
                     cal.add_component(event)
             except Exception as exc:

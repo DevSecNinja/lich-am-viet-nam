@@ -194,6 +194,8 @@ class MinimalFeedTests(unittest.TestCase):
                 expected[event.decoded('DTSTART')] = 'Full Moon'
             elif day == '1' and month == '1' and not leap:
                 expected[event.decoded('DTSTART')] = 'Lunar New Year'
+            elif day == '1':
+                expected[event.decoded('DTSTART')] = 'First Day of Lunar Month'
         actual = self.minimal.walk('VEVENT')
         self.assertEqual(len(actual), len(expected))
         self.assertEqual(len({str(event['UID']) for event in actual}), len(actual))
@@ -236,14 +238,14 @@ class MinimalFeedTests(unittest.TestCase):
                 self.assertNotIn('X-MICROSOFT-CDO-IMPORTANCE', event)
                 self.assertEqual(str(event['COLOR']), '#FB8C00')
 
-    def test_filter_includes_leap_full_moons_but_not_leap_new_year(self):
+    def test_filter_includes_all_first_days_and_full_moons_but_leap_is_not_new_year(self):
         solar = date(2026, 2, 17)
         base = to_lunar(solar)
         generator = LunarCalendarGenerator('en', minimal=True)
         for month, day, expected in (
-            (1, 1, 'Lunar New Year'), (-1, 1, None), (-1, 15, 'Full Moon'),
+            (1, 1, 'Lunar New Year'), (-1, 1, 'First Day of Lunar Month'), (-1, 15, 'Full Moon'),
             (-6, 15, 'Full Moon'), (1, 2, None), (1, 3, None),
-            (12, 29, None), (12, 30, None), (6, 1, None), (6, 7, None),
+            (12, 29, None), (12, 30, None), (6, 1, 'First Day of Lunar Month'), (6, 7, None),
         ):
             with self.subTest(month=month, day=day):
                 lunar = replace(base, lunar_month=month, lunar_day=day, is_leap_month=month < 0)
@@ -276,7 +278,10 @@ class MinimalFeedTests(unittest.TestCase):
         en_events = self.minimal.walk('VEVENT')
         self.assertEqual(len(vi_events), len(en_events))
         self.assertEqual(len({str(event['UID']) for event in vi_events}), len(vi_events))
-        titles = {'Full Moon': 'R\u1eb1m', 'Lunar New Year': 'T\u1ebft Nguy\u00ean \u0110\u00e1n'}
+        titles = {
+            'Full Moon': 'R\u1eb1m', 'Lunar New Year': 'T\u1ebft Nguy\u00ean \u0110\u00e1n',
+            'First Day of Lunar Month': 'M\u00f9ng 1',
+        }
         for vi, en in zip(vi_events, en_events):
             self.assertEqual(str(vi['SUMMARY']), titles[str(en['SUMMARY'])])
             self.assertEqual(str(vi['UID']), f"vnlunar-minimal-{vi.decoded('DTSTART'):%Y%m%d}@cmduyeen")
@@ -315,7 +320,7 @@ class MinimalFeedTests(unittest.TestCase):
         calendar = generator._make_calendar()
         with patch('src.ics_generator.to_lunar', return_value=lunar):
             generator._fill_calendar(calendar, solar, solar)
-        self.assertEqual(calendar.walk('VEVENT'), [])
+        self.assertEqual([str(e['SUMMARY']) for e in calendar.walk('VEVENT')], ['M\u00f9ng 1'])
 
     def test_vietnamese_minimal_errors_do_not_publish_partial_calendars(self):
         with patch('src.ics_generator.to_lunar', side_effect=ValueError('Conversion failed')):

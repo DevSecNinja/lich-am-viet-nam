@@ -3,154 +3,274 @@ VERSION:2.0
 PRODID:-//VietLunarCalendar//Vietnamese Lunar Calendar//VI
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALDESC:Chỉ gồm Rằm (ngày 15 âm lịch, kể cả tháng nhu
- ận) và Mùng 1 Tết Nguyên Đán (tháng Giêng không nhuận). Khô
- ng phải thời điểm trăng tròn thiên văn chính xác. Múi giờ 
- GMT+7 - Asia/Ho_Chi_Minh.
+X-WR-CALDESC:Chỉ gồm Rằm (ngày 15 âm lịch), Mùng 1 mỗi tháng
+  âm lịch (kể cả tháng nhuận) và Tết Nguyên Đán. Không ph
+ ải thời điểm trăng tròn thiên văn chính xác. Múi giờ GMT+7
+  - Asia/Ho_Chi_Minh.
 X-WR-CALNAME:Lịch Âm Việt Nam - Tối Giản 2033
 X-APPLE-CALENDAR-COLOR:#E53935
 X-WR-TIMEZONE:Asia/Ho_Chi_Minh
 BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330101
+DTEND;VALUE=DATE:20330102
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330101@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 12 âm lịch (Nhâm Tý)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330115
 DTEND;VALUE=DATE:20330116
-DTSTAMP:20260928T071133Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330115@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 12 âm lịch (Nhâm Tý)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 12 âm lịch (Nhâm Tý)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Tết Nguyên Đán
 DTSTART;VALUE=DATE:20330131
 DTEND;VALUE=DATE:20330201
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330131@cmduyeen
 COLOR:#E53935
-DESCRIPTION:Ngày 1 tháng 1 âm lịch (Quý Sửu)\nNgày đầu năm âm
-  lịch (mùng 1 tháng Giêng không nhuận).
+DESCRIPTION:Ngày 1 tháng 1 âm lịch (Quý Sửu)\nNgày đầu năm â
+ m lịch (mùng 1 tháng Giêng không nhuận).
 X-MICROSOFT-CDO-IMPORTANCE:2
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330214
 DTEND;VALUE=DATE:20330215
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330214@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 1 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 1 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330301
+DTEND;VALUE=DATE:20330302
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330301@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 2 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330315
 DTEND;VALUE=DATE:20330316
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330315@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 2 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 2 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330331
+DTEND;VALUE=DATE:20330401
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330331@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 3 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330414
 DTEND;VALUE=DATE:20330415
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330414@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 3 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 3 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330429
+DTEND;VALUE=DATE:20330430
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330429@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 4 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330513
 DTEND;VALUE=DATE:20330514
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330513@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 4 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 4 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330528
+DTEND;VALUE=DATE:20330529
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330528@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 5 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330611
 DTEND;VALUE=DATE:20330612
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330611@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 5 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 5 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330627
+DTEND;VALUE=DATE:20330628
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330627@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 6 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330711
 DTEND;VALUE=DATE:20330712
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330711@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 6 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 6 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330726
+DTEND;VALUE=DATE:20330727
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330726@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 7 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330809
 DTEND;VALUE=DATE:20330810
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330809@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 7 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 7 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330825
+DTEND;VALUE=DATE:20330826
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330825@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 8 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20330908
 DTEND;VALUE=DATE:20330909
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20330908@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 8 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 8 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20330923
+DTEND;VALUE=DATE:20330924
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20330923@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 9 âm lịch (Quý Sửu)\nNgày đầu tiên c
+ ủa tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20331007
 DTEND;VALUE=DATE:20331008
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20331007@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 9 âm lịch (Quý Sửu)\nNgày 15 âm lịch 
- theo truyền thống\, không phải thời điểm trăng tròn thiên v
- ăn chính xác.
+DESCRIPTION:Ngày 15 tháng 9 âm lịch (Quý Sửu)\nNgày 15 âm lịch
+  theo truyền thống\, không phải thời điểm trăng tròn thiên 
+ văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20331023
+DTEND;VALUE=DATE:20331024
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20331023@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 10 âm lịch (Quý Sửu)\nNgày đầu tiên 
+ của tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20331106
 DTEND;VALUE=DATE:20331107
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20331106@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 10 âm lịch (Quý Sửu)\nNgày 15 âm lịch
-  theo truyền thống\, không phải thời điểm trăng tròn thiên 
- văn chính xác.
+DESCRIPTION:Ngày 15 tháng 10 âm lịch (Quý Sửu)\nNgày 15 âm lịc
+ h theo truyền thống\, không phải thời điểm trăng tròn thiên
+  văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20331122
+DTEND;VALUE=DATE:20331123
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20331122@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 11 âm lịch (Quý Sửu)\nNgày đầu tiên 
+ của tháng âm lịch (mùng 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Rằm
 DTSTART;VALUE=DATE:20331206
 DTEND;VALUE=DATE:20331207
-DTSTAMP:20260928T071134Z
+DTSTAMP:20261028T194402Z
 UID:vnlunar-minimal-20331206@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Ngày 15 tháng 11 âm lịch (Quý Sửu)\nNgày 15 âm lịch
-  theo truyền thống\, không phải thời điểm trăng tròn thiên 
- văn chính xác.
+DESCRIPTION:Ngày 15 tháng 11 âm lịch (Quý Sửu)\nNgày 15 âm lịc
+ h theo truyền thống\, không phải thời điểm trăng tròn thiên
+  văn chính xác.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Mùng 1
+DTSTART;VALUE=DATE:20331222
+DTEND;VALUE=DATE:20331223
+DTSTAMP:20261028T194402Z
+UID:vnlunar-minimal-20331222@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Ngày 1 tháng 11 nhuận âm lịch (Quý Sửu)\nNgày đầ
+ u tiên của tháng âm lịch (mùng 1).
 END:VEVENT
 END:VCALENDAR

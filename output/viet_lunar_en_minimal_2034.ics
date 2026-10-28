@@ -3,9 +3,9 @@ VERSION:2.0
 PRODID:-//VietLunarCalendar//Vietnamese Lunar Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALDESC:Full Moon (traditional lunar day 15, including leap months) an
- d Lunar New Year's Day only. Not exact astronomical full moon times. Time 
- zone GMT+7 - Asia/Ho_Chi_Minh.
+X-WR-CALDESC:Full Moon (traditional lunar day 15), the first day of every 
+ lunar month (including leap months) and Lunar New Year's Day only. Not exa
+ ct astronomical full moon times. Time zone GMT+7 - Asia/Ho_Chi_Minh.
 X-WR-CALNAME:Vietnamese Lunar Calendar - Minimal 2034
 X-APPLE-CALENDAR-COLOR:#E53935
 X-WR-TIMEZONE:Asia/Ho_Chi_Minh
@@ -13,141 +13,251 @@ BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340105
 DTEND;VALUE=DATE:20340106
-DTSTAMP:20261020T191901Z
+DTSTAMP:20261028T194409Z
 UID:vnlunar-en-minimal-20340105@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, leap month 11 (Yin Water Buffalo year)\nTraditio
- nal lunar day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, leap month 11 (Yin Water Buffalo year)\nTraditi
+ onal lunar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340120
+DTEND;VALUE=DATE:20340121
+DTSTAMP:20261028T194409Z
+UID:vnlunar-en-minimal-20340120@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 12 (Yin Water Buffalo year)\nFirst day of 
+ the lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340203
 DTEND;VALUE=DATE:20340204
-DTSTAMP:20261020T191901Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340203@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 12 (Yin Water Buffalo year)\nTraditional l
- unar day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 12 (Yin Water Buffalo year)\nTraditional 
+ lunar day 15\, not an exact astronomical full moon time.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Lunar New Year
 DTSTART;VALUE=DATE:20340219
 DTEND;VALUE=DATE:20340220
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340219@cmduyeen
 COLOR:#E53935
-DESCRIPTION:Lunar day 1\, month 1 (Yang Wood Tiger year)\nFirst day of the 
- lunar year (non-leap month 1).
+DESCRIPTION:Lunar day 1\, month 1 (Yang Wood Tiger year)\nFirst day of the
+  lunar year (non-leap month 1).
 X-MICROSOFT-CDO-IMPORTANCE:2
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340305
 DTEND;VALUE=DATE:20340306
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340305@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 1 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 1 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340320
+DTEND;VALUE=DATE:20340321
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340320@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 2 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340403
 DTEND;VALUE=DATE:20340404
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340403@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 2 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 2 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340419
+DTEND;VALUE=DATE:20340420
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340419@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 3 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340503
 DTEND;VALUE=DATE:20340504
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340503@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 3 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 3 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340518
+DTEND;VALUE=DATE:20340519
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340518@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 4 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340601
 DTEND;VALUE=DATE:20340602
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340601@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 4 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 4 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340616
+DTEND;VALUE=DATE:20340617
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340616@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 5 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340630
 DTEND;VALUE=DATE:20340701
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340630@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 5 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 5 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340716
+DTEND;VALUE=DATE:20340717
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340716@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 6 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340730
 DTEND;VALUE=DATE:20340731
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340730@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 6 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 6 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340814
+DTEND;VALUE=DATE:20340815
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340814@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 7 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340828
 DTEND;VALUE=DATE:20340829
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340828@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 7 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 7 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20340913
+DTEND;VALUE=DATE:20340914
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20340913@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 8 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20340927
 DTEND;VALUE=DATE:20340928
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20340927@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 8 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 8 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20341012
+DTEND;VALUE=DATE:20341013
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20341012@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 9 (Yang Wood Tiger year)\nFirst day of the
+  lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20341026
 DTEND;VALUE=DATE:20341027
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20341026@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 9 (Yang Wood Tiger year)\nTraditional luna
- r day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 9 (Yang Wood Tiger year)\nTraditional lun
+ ar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20341111
+DTEND;VALUE=DATE:20341112
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20341111@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 10 (Yang Wood Tiger year)\nFirst day of th
+ e lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20341125
 DTEND;VALUE=DATE:20341126
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20341125@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 10 (Yang Wood Tiger year)\nTraditional lun
- ar day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 10 (Yang Wood Tiger year)\nTraditional lu
+ nar day 15\, not an exact astronomical full moon time.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Day of Lunar Month
+DTSTART;VALUE=DATE:20341211
+DTEND;VALUE=DATE:20341212
+DTSTAMP:20261028T194410Z
+UID:vnlunar-en-minimal-20341211@cmduyeen
+COLOR:#FB8C00
+DESCRIPTION:Lunar day 1\, month 11 (Yang Wood Tiger year)\nFirst day of th
+ e lunar month (lunar day 1).
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Full Moon
 DTSTART;VALUE=DATE:20341225
 DTEND;VALUE=DATE:20341226
-DTSTAMP:20261020T191902Z
+DTSTAMP:20261028T194410Z
 UID:vnlunar-en-minimal-20341225@cmduyeen
 COLOR:#FB8C00
-DESCRIPTION:Lunar day 15\, month 11 (Yang Wood Tiger year)\nTraditional lun
- ar day 15\, not an exact astronomical full moon time.
+DESCRIPTION:Lunar day 15\, month 11 (Yang Wood Tiger year)\nTraditional lu
+ nar day 15\, not an exact astronomical full moon time.
 END:VEVENT
 END:VCALENDAR

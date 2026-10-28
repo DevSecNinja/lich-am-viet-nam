@@ -16,7 +16,7 @@ Outlook. Subscribe in your existing calendar app without installing another app.
 Choose an English subscription:
 
 - [Full daily calendar](output/viet_lunar_en_latest.ics): lunar dates and all included holidays.
-- [Minimal calendar](output/viet_lunar_en_minimal_latest.ics): only **Full Moon** and **Lunar New Year**.
+- [Minimal calendar](output/viet_lunar_en_minimal_latest.ics): only **Full Moon**, **First Day of Lunar Month** and **Lunar New Year**.
 
 Open the chosen file, select
 **Raw**, and copy the resulting URL into your calendar app. The raw URL identifies
@@ -39,14 +39,16 @@ identifiers, so full/minimal English and Vietnamese do not overwrite one another
 
 ### Minimal calendar
 
-Both minimal feeds contain only these two event kinds (English titles shown):
+Both minimal feeds contain only these three event kinds (English titles shown):
 
 - **Full Moon**: the traditional **15th day of every lunar month**, including leap
   months. This follows the existing lunar calendar convention, **not the exact
   astronomical full moon instant or date**. Festival names such as Mid-Autumn
   Festival do not replace the Full Moon title.
-- **Lunar New Year**: day 1 of **non-leap lunar month 1** only. New Year's Eve,
-  days 2 and 3, and day 1 of a leap month are excluded.
+- **First Day of Lunar Month**: **day 1 of every lunar month**, including leap
+  months (Vietnamese title: Mùng 1).
+- **Lunar New Year**: day 1 of **non-leap lunar month 1**, replacing the First Day
+  title on that date. New Year's Eve and days 2 and 3 are excluded.
 
 Both are all-day events. Descriptions retain the lunar date and leap-month marker
 where applicable. No new astronomical calculations or dependencies are involved.

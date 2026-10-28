@@ -10,8 +10,8 @@ Cách dùng:
     python main.py --start 2026 --end 2036  # Tạo lịch cho khoảng năm tùy chọn
     python main.py --year 2027              # Chỉ tạo lịch cho một năm cụ thể
     python main.py --language en --split    # Generate English calendars alongside Vietnamese files
-    python main.py --language en --minimal --split  # Only lunar day 15 and Lunar New Year's Day
-    python main.py --minimal --split        # Rằm và Mùng 1 Tết, tiếng Việt (mặc định)
+    python main.py --language en --minimal --split  # Lunar day 1 and 15 of every month
+    python main.py --minimal --split        # Mùng 1 và Rằm mỗi tháng, tiếng Việt (mặc định)
 """
 import argparse
 import re

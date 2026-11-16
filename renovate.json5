@@ -1,0 +1,8 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  // Org defaults: config:recommended plus the DevSecNinja presets. Renovate
+  // only processes a fork that has its own config, so this file turns it on.
+  extends: ["github>DevSecNinja/.github//.renovate/default.json5"],
+  // Repository-specific settings go below (packageRules, customManagers,
+  // opt-in presets).
+}

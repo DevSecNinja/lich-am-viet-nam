@@ -1,3 +1,9 @@
-# Preserve iCalendar CRLF and significant spaces in folded content lines.
-output/viet_lunar_en_*.ics -text whitespace=-blank-at-eol
-output/viet_lunar_minimal_*.ics -text whitespace=-blank-at-eol
+# LF for every text file, in the repository and in each checkout.
+* text=auto eol=lf
+
+# iCalendar (RFC 5545) requires CRLF line endings, and folded content lines
+# keep significant spaces: store every calendar byte for byte, without line-ending
+# conversion. This covers the Vietnamese, English and minimal feeds alike.
+*.ics -text whitespace=-blank-at-eol
+
+*.zip binary

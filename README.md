@@ -1,3 +1,15 @@
+## Subscription URL (this fork)
+
+Subscribe to the English key-days feed:
+
+```text
+https://raw.githubusercontent.com/DevSecNinja/lich-am-viet-nam/main/output/viet_lunar_en_minimal_latest.ics
+```
+
+It contains only the key days: Full Moon (15th), First Day of Lunar Month (1st), Lunar New Year and the festivals. There are no daily entries. The feed covers 2026-01-03 to 2036-12-31.
+
+This fork is archived and kept read-only so the URL above keeps working. Upstream's own daily English feed is `https://raw.githubusercontent.com/cmduyeen/lich-am-viet-nam/main/output/viet_lunar_en_latest.ics`.
+
 <!-- SEO Metadata & Social Graph -->
 <meta name="description" content="Lịch Âm Việt Nam — Đồng bộ tự động vào Google Calendar, Apple Calendar, Outlook. Chuẩn xác, tối giản, tự động duy trì 10 năm tới.">
 <meta name="keywords" content="lich am viet nam, lich am google calendar, lich am apple calendar, lich am ics, dong bo lich am, cmduyeen, pinkie suite">
